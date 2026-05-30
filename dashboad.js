@@ -88,19 +88,21 @@ function displayTransactions()
     // Clear container first to avoid duplicates
     container.innerHTML = "";
 
-    // Loop through all transactions and show each one
-    transactions.forEach(function(transaction)
+    // Show newest transactions at the top
+    const reversed = transactions.slice().reverse();
+
+    reversed.forEach(function(transaction)
     {
         const item = document.createElement("div");
 
-        item.style.backgroundColor = 
+        item.style.backgroundColor =
         transaction.type === "expense" ? "#ff000033" : "#00ff0033";
 
         item.style.padding = "10px";
         item.style.borderRadius = "8px";
         item.style.marginBottom = "8px";
 
-        item.innerHTML = 
+        item.innerHTML =
         "<strong>" + transaction.type.toUpperCase() + "</strong>" +
         " | ₹" + transaction.amount +
         " | " + transaction.mode +
@@ -126,45 +128,34 @@ function displayAnalytics()
 
     const now = new Date();
 
-    // NIGHT RESET LOGIC
-    // If time is 11PM or later, treat tomorrow as today
-    // So late night spending counts for next day
-    const currentHour = now.getHours();
-
-    const adjustedDate = new Date(now);
-
-    if(currentHour >= 23)
-    {
-        // Add one day to adjusted date
-        adjustedDate.setDate(adjustedDate.getDate() + 1);
-    }
-
     let todayTotal = 0;
     let monthTotal = 0;
     let yearTotal = 0;
 
     transactions.forEach(function(transaction)
     {
-        // Only count expenses not income
+        // Only count expenses, not income
         if(transaction.type !== "expense")
         {
             return;
         }
 
-        const transactionDate = new Date(transaction.rawDate);
+        const t = new Date(transaction.rawDate);
 
-        // Check if same year
-        if(transactionDate.getFullYear() === adjustedDate.getFullYear())
+        // Check same year first
+        if(t.getFullYear() === now.getFullYear())
         {
             yearTotal += transaction.amount;
 
-            // Check if same month
-            if(transactionDate.getMonth() === adjustedDate.getMonth())
+            // Check same month inside same year
+            if(t.getMonth() === now.getMonth())
             {
                 monthTotal += transaction.amount;
 
-                // Check if same day
-                if(transactionDate.getDate() === adjustedDate.getDate())
+                // Check same day inside same month
+                // This resets automatically at midnight because
+                // new Date() always reflects the real current time
+                if(t.getDate() === now.getDate())
                 {
                     todayTotal += transaction.amount;
                 }
@@ -172,17 +163,54 @@ function displayAnalytics()
         }
     });
 
-    document.querySelector("#todaySpending").textContent = 
+    document.querySelector("#todaySpending").textContent =
     "Money Spent Today : ₹" + todayTotal;
 
-    document.querySelector("#monthlySpending").textContent = 
+    document.querySelector("#monthlySpending").textContent =
     "Money Spent This Month : ₹" + monthTotal;
 
-    document.querySelector("#yearlySpending").textContent = 
+    document.querySelector("#yearlySpending").textContent =
     "Money Spent This Year : ₹" + yearTotal;
 }
 
 displayAnalytics();
+
+
+// ============================================
+// AUTO REFRESH ANALYTICS AT MIDNIGHT
+// Calculates ms remaining until 12:00:00 AM
+// and schedules a refresh at that exact moment
+// ============================================
+function scheduleMidnightReset()
+{
+    const now = new Date();
+
+    const midnight = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1, // tomorrow
+        0, 0, 0, 0         // at 12:00:00.000 AM
+    );
+
+    const msUntilMidnight = midnight - now;
+
+    setTimeout(function()
+    {
+        // Update the date display
+        const newDay = new Date();
+        document.querySelector("#currentDate").textContent =
+        "Today's Date : " + newDay.toDateString();
+
+        // Refresh analytics so today's total resets to 0
+        displayAnalytics();
+
+        // Schedule again for the next midnight
+        scheduleMidnightReset();
+
+    }, msUntilMidnight);
+}
+
+scheduleMidnightReset();
 
 
 // ============================================
@@ -223,8 +251,6 @@ function displayMonthlySummary()
         const year = date.getFullYear();
         const key = monthName + " " + year;
 
-        // If this month exists already, add to it
-        // If not, start it at 0 then add
         if(monthlyTotals[key] === undefined)
         {
             monthlyTotals[key] = 0;
@@ -236,7 +262,6 @@ function displayMonthlySummary()
     // DISPLAY EACH MONTH
     container.innerHTML = "";
 
-    // Object.keys gives us all the month names as an array
     Object.keys(monthlyTotals).forEach(function(month)
     {
         const item = document.createElement("div");
@@ -276,9 +301,9 @@ saveButton.addEventListener("click", function(event)
 
 
     // VALIDATION
-    if(amount === 0 || amount === "")
+    if(isNaN(amount) || amount <= 0)
     {
-        alert("Please enter an amount!");
+        alert("Please enter a valid amount!");
         return;
     }
 
@@ -392,11 +417,11 @@ const resetButton = document.querySelector("#resetButton");
 
 resetButton.addEventListener("click", function()
 {
-    const confirm = window.confirm(
+    const confirmed = window.confirm(
         "Are you sure? This will delete ALL your transactions and balance. This cannot be undone!"
     );
 
-    if(confirm === true)
+    if(confirmed === true)
     {
         // Clear everything from localStorage
         localStorage.removeItem("balance");
