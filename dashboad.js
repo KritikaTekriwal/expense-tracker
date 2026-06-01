@@ -69,7 +69,6 @@ displayBalance();
 // ============================================
 function displayTransactions()
 {
-    // Read all saved transactions from localStorage
     const saved = localStorage.getItem("transactions");
     const transactions = saved ? JSON.parse(saved) : [];
 
@@ -153,8 +152,6 @@ function displayAnalytics()
                 monthTotal += transaction.amount;
 
                 // Check same day inside same month
-                // This resets automatically at midnight because
-                // new Date() always reflects the real current time
                 if(t.getDate() === now.getDate())
                 {
                     todayTotal += transaction.amount;
@@ -178,8 +175,6 @@ displayAnalytics();
 
 // ============================================
 // AUTO REFRESH ANALYTICS AT MIDNIGHT
-// Calculates ms remaining until 12:00:00 AM
-// and schedules a refresh at that exact moment
 // ============================================
 function scheduleMidnightReset()
 {
@@ -188,23 +183,21 @@ function scheduleMidnightReset()
     const midnight = new Date(
         now.getFullYear(),
         now.getMonth(),
-        now.getDate() + 1, // tomorrow
-        0, 0, 0, 0         // at 12:00:00.000 AM
+        now.getDate() + 1,
+        0, 0, 0, 0
     );
 
     const msUntilMidnight = midnight - now;
 
     setTimeout(function()
     {
-        // Update the date display
         const newDay = new Date();
         document.querySelector("#currentDate").textContent =
         "Today's Date : " + newDay.toDateString();
 
-        // Refresh analytics so today's total resets to 0
         displayAnalytics();
 
-        // Schedule again for the next midnight
+        // Schedule again for next midnight
         scheduleMidnightReset();
 
     }, msUntilMidnight);
@@ -233,20 +226,19 @@ function displayMonthlySummary()
     if(expenses.length === 0)
     {
         emptyMessage.style.display = "block";
+        container.innerHTML = "";
         return;
     }
 
     emptyMessage.style.display = "none";
 
-    // GROUP BY MONTH
-    // Object acting as dictionary - key is "Month Year", value is total
+    // GROUP BY MONTH using object as dictionary
     const monthlyTotals = {};
 
     expenses.forEach(function(transaction)
     {
         const date = new Date(transaction.rawDate);
 
-        // Create a key like "May 2026"
         const monthName = date.toLocaleString("default", { month: "long" });
         const year = date.getFullYear();
         const key = monthName + " " + year;
@@ -292,13 +284,11 @@ saveButton.addEventListener("click", function(event)
 {
     event.preventDefault();
 
-    // Read form values
     const amount = Number(document.querySelector("#transactionAmount").value);
     const type = document.querySelector("#transactionType").value;
     const mode = document.querySelector("#paymentMode").value;
     const category = document.querySelector("#category").value;
     const note = document.querySelector("#note").value;
-
 
     // VALIDATION
     if(isNaN(amount) || amount <= 0)
@@ -325,7 +315,6 @@ saveButton.addEventListener("click", function(event)
         return;
     }
 
-
     // UPDATE BALANCE
     if(type === "expense")
     {
@@ -340,7 +329,6 @@ saveButton.addEventListener("click", function(event)
     }
     else
     {
-        // Income
         if(mode === "UPI")
         {
             balance.upi = balance.upi + amount;
@@ -354,9 +342,8 @@ saveButton.addEventListener("click", function(event)
     // Recalculate total
     balance.total = balance.upi + balance.cash;
 
-    // Save updated balance to localStorage
+    // Save updated balance
     localStorage.setItem("balance", JSON.stringify(balance));
-
 
     // SAVE TRANSACTION TO HISTORY
     const now = new Date();
@@ -372,23 +359,18 @@ saveButton.addEventListener("click", function(event)
         rawDate: now.toISOString()
     };
 
-    // Read existing transactions
     const saved = localStorage.getItem("transactions");
     const transactions = saved ? JSON.parse(saved) : [];
 
-    // Add new one to the list
     transactions.push(transaction);
 
-    // Save back to localStorage
     localStorage.setItem("transactions", JSON.stringify(transactions));
-
 
     // UPDATE SCREEN
     displayBalance();
     displayTransactions();
     displayAnalytics();
     displayMonthlySummary();
-
 
     // CLEAR FORM
     document.querySelector("#transactionAmount").value = "";
@@ -423,12 +405,10 @@ resetButton.addEventListener("click", function()
 
     if(confirmed === true)
     {
-        // Clear everything from localStorage
         localStorage.removeItem("balance");
         localStorage.removeItem("transactions");
         localStorage.removeItem("visited");
 
-        // Go back to setup page
         window.location.href = "setup.html";
     }
 });
