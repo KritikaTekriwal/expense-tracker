@@ -1,0 +1,17 @@
+#header
+{
+    justify-content: center;
+}
+
+#welcomeCard
+{
+    text-align: center;
+    margin-top: 60px;
+}
+
+#welcomeText
+{
+    color: var(--text-light);
+    font-size: 16px;
+    margin: 0;
+}

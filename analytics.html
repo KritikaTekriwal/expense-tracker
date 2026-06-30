@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="analytics.css">
+    <title>Analytics - Expense Tracker</title>
+</head>
+<body>
+
+    <!-- OVERLAY -->
+    <div id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <div id="sidebarTitle">💰 Expense Tracker</div>
+        <a href="home.html">🏠 Home</a>
+        <a href="balance.html">💳 Balance</a>
+        <a href="analytics.html" class="active">📊 Analytics</a>
+        <a href="history.html">🧾 History</a>
+        <a href="settings.html">⚙️ Settings</a>
+    </div>
+
+    <!-- HEADER -->
+    <header id="header">
+        <button id="menuButton" type="button">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <h1>Analytics</h1>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div id="pageContent">
+
+        <!-- QUICK STATS CARD -->
+        <div class="card">
+            <h2>Quick Stats</h2>
+            <p id="todaySpending">Money Spent Today : ₹0</p>
+            <p id="monthlySpending">Money Spent This Month : ₹0</p>
+            <p id="yearlySpending">Money Spent This Year : ₹0</p>
+        </div>
+
+        <!-- MONTHLY SUMMARY CARD -->
+        <div class="card">
+            <h2>Monthly Summary</h2>
+            <p class="emptyMessage" id="summaryEmpty">No transactions yet.</p>
+            <div id="monthlySummaryContainer"></div>
+        </div>
+
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="analytics.js"></script>
+</body>
+</html>

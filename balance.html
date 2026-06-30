@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shared.css">
+    <title>Balance - Expense Tracker</title>
+</head>
+<body>
+
+    <!-- OVERLAY -->
+    <div id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <div id="sidebarTitle">💰 Expense Tracker</div>
+        <a href="home.html">🏠 Home</a>
+        <a href="balance.html" class="active">💳 Balance</a>
+        <a href="analytics.html">📊 Analytics</a>
+        <a href="history.html">🧾 History</a>
+        <a href="settings.html">⚙️ Settings</a>
+    </div>
+
+    <!-- HEADER -->
+    <header id="header">
+        <button id="menuButton" type="button">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <h1>Balance</h1>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div id="pageContent">
+
+        <div class="card">
+            <h2>Available Balance</h2>
+
+            <p id="upiBalance">UPI Balance : ₹0</p>
+            <p id="cashBalance">Cash Balance : ₹0</p>
+            <p id="totalBalance">Total Balance : ₹0</p>
+
+            <button type="button" class="btnPrimary" id="editBalance">Edit Balance</button>
+        </div>
+
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="balance.js"></script>
+</body>
+</html>

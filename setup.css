@@ -1,0 +1,15 @@
+/* SETUP PAGE SPECIFIC STYLES */
+
+#setupSubtitle,
+#salarySubtitle
+{
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+/* No hamburger on setup page so center the header title */
+#header
+{
+    justify-content: center;
+}

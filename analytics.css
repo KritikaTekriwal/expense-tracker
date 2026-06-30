@@ -1,0 +1,71 @@
+.monthBlock
+{
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+}
+
+.monthHeading
+{
+    background-color: var(--primary);
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.dayRow
+{
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.dayInfo
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+.dayDate
+{
+    font-size: 14px;
+    color: var(--text);
+}
+
+.dayTotal
+{
+    font-weight: bold;
+    color: var(--primary);
+    margin-right: 10px;
+}
+
+.arrow
+{
+    font-size: 12px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.breakdown
+{
+    background-color: #F8FAFC;
+    padding: 8px 16px;
+}
+
+.breakdownItem
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--text-light);
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.breakdownItem:last-child
+{
+    border-bottom: none;
+}

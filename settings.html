@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shared.css">
+    <title>Settings - Expense Tracker</title>
+</head>
+<body>
+
+    <!-- OVERLAY -->
+    <div id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <div id="sidebarTitle">💰 Expense Tracker</div>
+        <a href="home.html">🏠 Home</a>
+        <a href="balance.html">💳 Balance</a>
+        <a href="analytics.html">📊 Analytics</a>
+        <a href="settings.html" class="active">⚙️ Settings</a>
+    </div>
+
+    <!-- HEADER -->
+    <header id="header">
+        <button id="menuButton" type="button">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <h1>Settings</h1>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div id="pageContent">
+
+        <!-- SALARY CARD -->
+        <div class="card">
+            <h2>Monthly Income</h2>
+            <p class="emptyMessage">Your salary or pocket money for the month.</p>
+
+            <label for="salary">Salary / Pocket Money (₹)</label>
+            <input type="number" id="salary" placeholder="Enter monthly amount">
+
+            <button type="button" class="btnPrimary" id="saveSalary">Save</button>
+        </div>
+
+        <!-- EDIT BALANCE CARD -->
+        <div class="card">
+            <h2>Edit Balance</h2>
+            <p class="emptyMessage">Update your current UPI and Cash balance.</p>
+            <button type="button" class="btnPrimary" id="editBalance">Go to Balance Setup</button>
+        </div>
+
+        <!-- DANGER ZONE CARD -->
+        <div class="card">
+            <h2>Danger Zone</h2>
+            <p class="emptyMessage">This will delete all your transactions and balance. Cannot be undone.</p>
+            <button type="button" class="btnDanger" id="resetButton">Reset Everything</button>
+        </div>
+
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

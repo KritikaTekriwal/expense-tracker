@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="setup.css">
+    <title>Setup - Expense Tracker</title>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <h1>Expense Tracker</h1>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div id="pageContent">
+
+        <!-- BALANCE SETUP CARD -->
+        <div class="card">
+            <h2>Set Your Balance</h2>
+            <p id="setupSubtitle">Enter your current UPI and Cash balance to get started.</p>
+
+            <label for="UPI">UPI Balance (₹)</label>
+            <input type="number" id="UPI" placeholder="Enter your UPI balance">
+
+            <label for="Cash">Cash Balance (₹)</label>
+            <input type="number" id="Cash" placeholder="Enter your cash balance">
+
+            <button type="button" class="btnPrimary" id="saveSetup">SAVE AND CONTINUE</button>
+        </div>
+
+        <!-- SALARY SETUP CARD -->
+        <div class="card">
+            <h2>Monthly Income</h2>
+            <p id="salarySubtitle">Enter your salary or pocket money. This helps track savings at month end.</p>
+
+            <label for="salary">Salary / Pocket Money (₹)</label>
+            <input type="number" id="salary" placeholder="Enter monthly amount (optional)">
+
+            <p class="emptyMessage">You can skip this and set it later in Settings.</p>
+        </div>
+
+    </div>
+
+    <script src="setup.js"></script>
+</body>
+</html>

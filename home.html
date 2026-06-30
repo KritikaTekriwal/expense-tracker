@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="shared.css">
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+
+    <!-- OVERLAY (dark area behind sidebar) -->
+    <div id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar">
+        <div id="sidebarTitle">💰 Expense Tracker</div>
+        <a href="home.html" class="active">🏠 Home</a>
+        <a href="balance.html">💳 Balance</a>
+        <a href="analytics.html">📊 Analytics</a>
+        <a href="history.html">🧾 History</a>
+        <a href="settings.html">⚙️ Settings</a>
+    </div>
+
+    <!-- HEADER -->
+    <header id="header">
+        <button id="menuButton" type="button">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <h1>Expense Tracker</h1>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div id="pageContent">
+
+        <!-- ADD TRANSACTION CARD -->
+        <div class="card">
+            <h2>Add Transaction</h2>
+
+            <label for="transactionAmount">Amount</label>
+            <input type="number" id="transactionAmount" placeholder="Enter amount">
+
+            <label for="transactionType">Transaction Type</label>
+            <select id="transactionType">
+                <option value="">Choose Type</option>
+                <option value="expense">Expense</option>
+                <option value="reimbursement">Reimbursement (paid back)</option>
+            </select>
+
+            <label for="paymentMode">Payment Mode</label>
+            <select id="paymentMode">
+                <option value="">Choose Payment Mode</option>
+                <option value="UPI">UPI</option>
+                <option value="Cash">Cash</option>
+            </select>
+
+            <label for="category">Category</label>
+            <select id="category">
+                <option value="">Choose Category</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Recharge">Recharge</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="note">Note (optional)</label>
+            <input type="text" id="note" placeholder="Add a note">
+
+            <button type="button" id="saveTransaction" class="btnPrimary">Save Transaction</button>
+        </div>
+
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
